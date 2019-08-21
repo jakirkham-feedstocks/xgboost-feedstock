@@ -27,6 +27,9 @@ fi
     -D NCCL_ROOT:PATH="${PREFIX}" \
     -D NCCL_INCLUDE_DIR:PATH="${PREFIX}/include" \
     -D BUILD_WITH_SHARED_NCCL:BOOL=ON \
+    -D USE_CUDF:BOOL=ON \
+    -D CUDF_ROOT:PATH="${PREFIX}" \
+    -D CUDF_INCLUDE_DIR:PATH="${PREFIX}/include" \
     "${SRC_DIR}"
 } || {
   cat $SRC_DIR/CMakeFiles/CMakeOutput.log
