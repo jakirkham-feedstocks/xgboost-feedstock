@@ -1,7 +1,8 @@
 {% set name = "xgboost" %}
 {% set version = "0.90" %}
 
-{% set xgboost_proc_type = "cpu" %}
+{% set xgboost_proc_type = "cpu" if cuda_compiler_version == "None" else "gpu" %}  # [linux64]
+{% set xgboost_proc_type = "cpu" %}                                                # [not linux64]
 
 package:
   name: {{ name|lower }}
@@ -26,11 +27,13 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != "None"]
     - git
     - cmake
     - make
     - llvm-openmp >=4.0.1  # [osx]
   host:
+    - nccl                 # [linux64 and cuda_compiler_version != "None"]
     - llvm-openmp >=4.0.1  # [osx]
 
 outputs:
@@ -54,12 +57,14 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != "None"]
         - git
         - cmake
         - make
         - llvm-openmp >=4.0.1  # [osx]
       host:
         - llvm-openmp >=4.0.1  # [osx]
+        - nccl                 # [linux64 and cuda_compiler_version != "None"]
       run:
         - llvm-openmp >=4.0.1  # [osx]
       run_constrained:
@@ -71,6 +76,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != "None"]
         - llvm-openmp >=4.0.1  # [osx]
       host:
         - {{ pin_subpackage('libxgboost', exact=True) }}
@@ -110,6 +116,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}  # [linux64 and cuda_compiler_version != "None"]
         - git
         - cmake
         - make
