@@ -1,4 +1,10 @@
 name: Upload conda packages
+on:
+  workflow_run:
+    workflows:
+      - Build conda package
+    types:
+      - completed
 
 jobs:
   on-success:
