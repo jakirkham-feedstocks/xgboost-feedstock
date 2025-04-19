@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-pushd build-target/xgboost
+pushd build-target
 
     cmake --install .
 
