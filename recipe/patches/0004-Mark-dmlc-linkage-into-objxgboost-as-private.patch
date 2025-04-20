@@ -1,0 +1,25 @@
+From 4c1582b64b20412969c905196b72db07d965bc68 Mon Sep 17 00:00:00 2001
+From: jakirkham <jakirkham@gmail.com>
+Date: Sat, 19 Apr 2025 17:00:45 -0700
+Subject: [PATCH] Mark `dmlc` linkage into `objxgboost` as private
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8dfe7dd9e..f671be5ca 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -308,7 +308,7 @@ endif()
+ 
+ # core xgboost
+ add_subdirectory(${xgboost_SOURCE_DIR}/src)
+-target_link_libraries(objxgboost PUBLIC dmlc)
++target_link_libraries(objxgboost PRIVATE dmlc)
+ 
+ # Link -lstdc++fs for GCC 8.x
+ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.0")
+-- 
+2.49.0
+
