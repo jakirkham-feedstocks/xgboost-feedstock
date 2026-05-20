@@ -95,14 +95,6 @@ outputs:
     build:
       noarch: python
       string: {{ string_prefix }}_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
-      script_env:
-        # Workaround an upstream conda-build issue w/pip & `outputs` by setting env vars manually.
-        # xref: https://github.com/conda/conda-build/issues/3993
-        - PIP_NO_BUILD_ISOLATION=False
-        - PIP_NO_DEPENDENCIES=True
-        - PIP_IGNORE_INSTALLED=True
-        - PIP_CACHE_DIR=pip_cache
-        - PIP_NO_INDEX=True
     requirements:
       build:   # [build_platform != target_platform]
         - python {{ python_min }}                              # [build_platform != target_platform]
